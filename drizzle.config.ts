@@ -1,5 +1,5 @@
 import { defineConfig } from "drizzle-kit";
-import {readConfigUrl} from "/home/justin/BlogA/src/config"
+import {readConfigUrl} from "./src/config"
 
 
 export default defineConfig({
