@@ -41,6 +41,16 @@ export function readConfig() {
   return validateConfig(rawConfig);
 }
 
+
+export function readConfigUrl() {
+  const fullPath = getConfigFilePath();
+
+  const data = fs.readFileSync(fullPath, "utf-8");
+  const rawConfig = JSON.parse(data);
+
+  return rawConfig.db_Url;
+}
+
 function getConfigFilePath() {
   const configFileName = ".gatorconfig.json";
   const homeDir = os.homedir();
