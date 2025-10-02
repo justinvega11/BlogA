@@ -3,7 +3,7 @@ import {
   registerCommand,
   runCommand,
 } from "./commands";
-import { handlerLogin, handlerRegister, handlerReset, handlerUsers } from "./usercommands";
+import { handlerAgg, handlerLogin, handlerRegister, handlerReset, handlerUsers } from "./usercommands";
 
 async function main() {
   const args = process.argv.slice(2);
@@ -25,6 +25,8 @@ async function main() {
   console.log("reset registered")
   await registerCommand(commandsRegistry, "users", handlerUsers)
   console.log("users found")
+  await registerCommand(commandsRegistry, "agg", handlerAgg)
+  console.log("aggregate debug")
 
   try {
     await runCommand(commandsRegistry, cmdName, ...cmdArgs);

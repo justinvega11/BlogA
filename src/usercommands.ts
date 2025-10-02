@@ -2,6 +2,7 @@ import { setUser, readConfig } from "./config";
 import { dbReset } from "./db/queries/dbreset";
 import { getUser, getUsers } from "./db/queries/getuser";
 import { createUser } from "./db/queries/users";
+import { fetchFeed } from "./rss/xmlparse";
 
 export async function handlerLogin(cmdName: string, ...args: string[]): Promise<void> {
   if (args.length !== 1) {
@@ -85,5 +86,14 @@ export async function handlerUsers(cmdName: string, ...args: string[]): Promise<
     console.error("db reset failed:", e);
     throw e;
   }
+
+}
+
+export async function handlerAgg(cmdName: string, ...args: string[]): Promise<void> {
+
+
+    const xml = await fetchFeed("https://www.wagslane.dev/index.xml")
+    console.log(xml )
+
 
 }
