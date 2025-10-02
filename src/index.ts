@@ -3,7 +3,7 @@ import {
   registerCommand,
   runCommand,
 } from "./commands";
-import { handlerLogin, handlerRegister } from "./usercommands";
+import { handlerLogin, handlerRegister, handlerReset, handlerUsers } from "./usercommands";
 
 async function main() {
   const args = process.argv.slice(2);
@@ -19,8 +19,12 @@ async function main() {
 
   await registerCommand(commandsRegistry, "login", handlerLogin);
   console.log("login registered")
-  await registerCommand(commandsRegistry,"register", handlerRegister)
-   console.log("register registered")
+  await registerCommand(commandsRegistry, "register", handlerRegister)
+  console.log("register registered")
+  await registerCommand(commandsRegistry, "reset", handlerReset)
+  console.log("reset registered")
+  await registerCommand(commandsRegistry, "users", handlerUsers)
+  console.log("users found")
 
   try {
     await runCommand(commandsRegistry, cmdName, ...cmdArgs);

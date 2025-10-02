@@ -15,3 +15,14 @@ export async function getUser(name: string):Promise<any> {
     
     return result;
 }
+
+export async function getUsers():Promise<any> {
+
+    
+    const result = await db.select({ name: users.name, }).from(users);
+    console.log("getUseroutput:")
+    console.log(result)
+
+    
+    return result;
+}

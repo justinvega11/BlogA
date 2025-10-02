@@ -1,5 +1,6 @@
-import { setUser } from "./config";
-import { getUser } from "./db/queries/getuser";
+import { setUser, readConfig } from "./config";
+import { dbReset } from "./db/queries/dbreset";
+import { getUser, getUsers } from "./db/queries/getuser";
 import { createUser } from "./db/queries/users";
 
 export async function handlerLogin(cmdName: string, ...args: string[]): Promise<void> {
@@ -12,12 +13,9 @@ export async function handlerLogin(cmdName: string, ...args: string[]): Promise<
   if (userCheck && userCheck.name) {
     setUser(userName);
     console.log("User switched successfully!");
-  }else{
+  } else {
     throw new Error(`User not found, please register`);
   }
-
-
-
 
 
 }
@@ -27,13 +25,12 @@ export async function handlerRegister(cmdName: string, ...args: string[]): Promi
     throw new Error(`usage: ${cmdName} <name>`);
   }
   const userName = args[0];
+
   try {
     console.time("getUser");
     const userCheck = await getUser(userName);
     console.timeEnd("getUser");
     console.log("After get User", userCheck);
-
-
 
     if (userCheck && userCheck.name) {
       throw new Error("user is already registered")
@@ -44,12 +41,48 @@ export async function handlerRegister(cmdName: string, ...args: string[]): Promi
     if (await createUser(userName)) {
       console.log("User successfully registered!");
     }
-
-
     console.log(`${userName} user has been created.`)
-
   } catch (e) {
     console.error("getUser failed:", e);
+    throw e;
+  }
+
+}
+
+export async function handlerReset(cmdName: string, ...args: string[]): Promise<void> {
+
+  try {
+    const userCheck = await dbReset();
+
+  } catch (e) {
+    console.error("db reset failed:", e);
+    throw e;
+  }
+
+}
+
+export async function handlerUsers(cmdName: string, ...args: string[]): Promise<void> {
+
+
+  try {
+    const currentUser = readConfig().currentUserName
+    const users = await getUsers();
+    console.log("currentUser output")
+    console.log(users)
+
+
+    for (let user of users) {
+      if (user.name === currentUser) {
+        console.log(`*${user.name} (current)`)
+      } else {
+        console.log(`*${user.name}`)
+      }
+    }
+
+
+
+  } catch (e) {
+    console.error("db reset failed:", e);
     throw e;
   }
 
