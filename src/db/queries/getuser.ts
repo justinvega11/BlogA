@@ -16,6 +16,28 @@ export async function getUser(name: string):Promise<any> {
     return result;
 }
 
+export async function getUserByUUID(id: string):Promise<any> {
+
+    
+    const [result] = await db.select({ name: users.name, }).from(users).where(eq(users.id, id));
+    console.log("getUseroutput:")
+    console.log(result)
+
+    
+    return result;
+}
+
+export async function getUserAndID(name: string):Promise<any> {
+
+    
+    const [result] = await db.select().from(users).where(eq(users.name, name));
+    console.log("getUseroutput:")
+    console.log(result)
+
+    
+    return result;
+}
+
 export async function getUsers():Promise<any> {
 
     

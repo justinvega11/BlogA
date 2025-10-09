@@ -3,7 +3,7 @@ import {
   registerCommand,
   runCommand,
 } from "./commands";
-import { handlerAgg, handlerLogin, handlerRegister, handlerReset, handlerUsers } from "./usercommands";
+import { handlerAddFeed, handlerAgg, handlerFeeds, handlerFollow, handlerGetFeedFollowsForUser, handlerLogin, handlerRegister, handlerReset, handlerUsers } from "./usercommands";
 
 async function main() {
   const args = process.argv.slice(2);
@@ -27,6 +27,14 @@ async function main() {
   console.log("users found")
   await registerCommand(commandsRegistry, "agg", handlerAgg)
   console.log("aggregate debug")
+  await registerCommand(commandsRegistry, "addfeed", handlerAddFeed)
+  console.log("addfeed debug")
+  await registerCommand(commandsRegistry, "feeds", handlerFeeds)
+  console.log("addfeed debug")
+    await registerCommand(commandsRegistry, "follow", handlerFollow)
+  console.log("addfeed debug")
+    await registerCommand(commandsRegistry, "following", handlerGetFeedFollowsForUser)
+  console.log("addfeed debug")
 
   try {
     await runCommand(commandsRegistry, cmdName, ...cmdArgs);

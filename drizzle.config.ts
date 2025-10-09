@@ -1,5 +1,5 @@
 import { defineConfig } from "drizzle-kit";
-import {readConfigUrl} from "./src/config"
+import {readConfigUrl} from "./src/readconfig"
 
 const url = readConfigUrl();
 console.log("Drizzle URL:", url);

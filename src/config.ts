@@ -13,6 +13,7 @@ export function setUser(userName: string) {
   writeConfig(config);
 }
 
+
 function validateConfig(rawConfig: any) {
   if (!rawConfig.db_url || typeof rawConfig.db_url !== "string") {
     throw new Error("db_url is required in config file");
